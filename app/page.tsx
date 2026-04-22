@@ -7,38 +7,26 @@ const services = [
   {
     number: "01",
     title: "Kitchen Remodeling",
-    description:
-      "Custom kitchen upgrades built for better flow, storage, and everyday use.",
+    description: "Custom kitchen upgrades built for better flow, storage, and everyday use.",
+    highlight: "Built for functionality & flow",
   },
   {
     number: "02",
     title: "Bathroom Remodeling",
-    description:
-      "Bathroom remodels finished with clean detail, durability, and a polished look.",
+    description: "Bathroom remodels finished with clean detail, durability, and a polished look.",
+    highlight: "Clean finishes that last",
   },
   {
     number: "03",
     title: "Floor Installation",
-    description:
-      "Professional flooring installation that improves the feel, style, and finish of your home.",
+    description: "Professional flooring installation that improves the feel, style, and value of your home.",
+    highlight: "Precision installation",
   },
   {
     number: "04",
-    title: "Exterior Remodeling",
-    description:
-      "Exterior improvements that strengthen curb appeal and give your home a more finished appearance.",
-  },
-  {
-    number: "05",
-    title: "Custom Trim & Finish",
-    description:
-      "Trim, molding, and finish work that sharpens the final look of each space.",
-  },
-  {
-    number: "06",
-    title: "Home Remodeling",
-    description:
-      "Full home updates designed to make your space more functional, comfortable, and well put together.",
+    title: "Interior & Exterior Painting",
+    description: "High-quality painting that refreshes and protects your home inside and out.",
+    highlight: "Smooth, even finishes",
   },
 ];
 
@@ -132,9 +120,10 @@ export default function Home() {
       <main>
         <section className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:py-20">
           <div className="order-2 flex flex-col justify-center lg:order-1">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#7C9A6D] sm:text-sm">
-              Fully Insured • DFW Metroplex
-            </p>
+        
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#6f8a67]">
+  13+ Years of Experience <span className="mx-2 text-zinc-400">*</span> Fully Insured <span className="mx-2 text-zinc-400">*</span> DFW Metroplex
+</p>
 
             <h1 className="max-w-2xl text-4xl font-semibold leading-[1.05] sm:text-5xl lg:text-[3.6rem]">
               Quality remodeling with a clean, polished finish
@@ -191,10 +180,9 @@ export default function Home() {
               Remodeling services built around quality and detail
             </h2>
 
-            <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg">
-              Thoughtful upgrades, clean finishes, and dependable workmanship
-              for homeowners who want their space done right.
-            </p>
+            <p className="mt-4 text-base leading-7 text-zinc-600 sm:text-lg">
+  Thoughtful upgrades, clean finishes, and dependable workmanship for homeowners who want their space done right.
+            </p>  
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
@@ -215,9 +203,9 @@ export default function Home() {
                   {service.description}
                 </p>
 
-                <div className="mt-5 text-sm font-medium text-[#6f8f6b]">
-                  Quality craftsmanship
-                </div>
+                <div className="mt-5 text-sm font-medium text-[#6f8a67]">
+  {service.highlight}
+</div>
               </div>
             ))}
           </div>
