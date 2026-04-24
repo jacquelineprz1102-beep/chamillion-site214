@@ -1,58 +1,79 @@
 "use client";
-
+import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
 const services = [
   {
-    number: "01",
     title: "Kitchen Remodeling",
     description: "Custom kitchen upgrades built for better flow, storage, and everyday use.",
     highlight: "Built for functionality & flow",
   },
   {
-    number: "02",
     title: "Bathroom Remodeling",
     description: "Bathroom remodels finished with clean detail, durability, and a polished look.",
     highlight: "Clean finishes that last",
   },
   {
-    number: "03",
     title: "Floor Installation",
     description: "Professional flooring installation that improves the feel, style, and value of your home.",
     highlight: "Precision installation",
   },
   {
-    number: "04",
+   title: "Wallpaper Installation",
+  description: "Expert wallpaper installation with seamless alignment, crisp edges, and a flawless finish that elevates your space.",
+  highlight: "Clean alignment & premium finish"
+},
+  {
     title: "Interior & Exterior Painting",
     description: "High-quality painting that refreshes and protects your home inside and out.",
     highlight: "Smooth, even finishes",
   },
 ];
 
-const transformations = [
+const finishedProjects = [
   {
     title: "Kitchen Remodel",
-    before: "/IMG_0169.jpeg",
-    after: "/D9EDB019-0B72-4A52-AE14-843D5BF27DF1.jpeg",
+    image: "/D9EDB019-0B72-4A52-AE14-843D5BF27DF1.jpeg",
+  },
+  {
+    title: "Patio Remodel",
+    image: "/Patio1.heic",
   },
   {
     title: "Bathroom Remodel",
-    before: "/before-tub.jpg",
-    after: "/after-bathroom.jpg",
+    image: "/Bathroom.jpg",
   },
   {
-    title: "Shower Finish",
-    before: "/before-bathroom.jpg",
-    after: "/after-shower.jpg",
+    title: "Wallpaper Installation",
+    image: "/Vanity.PNG",
   },
   {
-    title: "Vanity Installation",
-    before: "/before-vanity.jpg",
-    after: "/after-vanity.jpg",
+    title: "Custom Vanity Installation",
+    image: "/after-vanity.jpg",
   },
-];
-
+  {
+    title: "Living Room Remodel",
+    image: "/IMG_6693.jpeg",
+  },
+  {
+    title: "Wallpaper Installation",
+    image: "/IMG_6686.HEIC",
+  },
+  {
+    title: "Wallpaper Installation",
+    image: "/IMG_6694.HEIC",
+  },
+  {
+    title: "Wallpaper Installation",
+    image: "/IMG_6215.heic",
+  },
+]
+const featuredComparison = {
+  title: "Kitchen Remodel Before & After",
+  before: "/03FCD776-A733-4AA9-8777-D0250FBA959F.HEIC",
+  after: "/69EB0A22-B0E0-4070-86E8-C5DDB406E53A.HEIC",
+};
 export default function Home() {
   const [isEstimateOpen, setIsEstimateOpen] = useState(false);
   const [form, setForm] = useState({
@@ -112,207 +133,303 @@ export default function Home() {
             onClick={() => setIsEstimateOpen(true)}
             className="shrink-0 rounded-full bg-[#7C9A6D] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#6b875d]"
           >
+            <a
+  href="tel:2142889423"
+  className="hidden sm:inline-flex items-center text-sm font-medium text-zinc-700 hover:text-[#7C9A6D] mr-4"
+>
+  (214) 288-9423
+</a>
             Book Estimate
           </button>
         </div>
       </header>
 
       <main>
-        <section className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:py-20">
-          <div className="order-2 flex flex-col justify-center lg:order-1">
-        
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#6f8a67]">
-  13+ Years of Experience <span className="mx-2 text-zinc-400">*</span> Fully Insured <span className="mx-2 text-zinc-400">*</span> DFW Metroplex
-</p>
+        <section className="relative overflow-hidden bg-[#f6f8f5]">
+  <div className="absolute right-0 top-0 h-full w-1/3 bg-[#e8efe5]" />
 
-            <h1 className="max-w-2xl text-4xl font-semibold leading-[1.05] sm:text-5xl lg:text-[3.6rem]">
-              Quality remodeling with a clean, polished finish
-            </h1>
+  <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
+    <div>
+      <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-[#7C9A6D]">
+        13+ Years of Experience • Fully Insured
+      </p>
 
-            <p className="mt-5 max-w-xl text-base leading-7 text-zinc-600 sm:text-lg">
-              Chamillion Remodeling helps homeowners upgrade their spaces with
-              dependable workmanship, clear communication, and results that look
-              finished the right way.
-            </p>
+      <h1 className="max-w-2xl text-5xl font-semibold leading-[1.02] tracking-tight text-zinc-950 sm:text-6xl lg:text-7xl">
+        Quality remodeling with a clean, polished finish.
+      </h1>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <button
-                type="button"
-                onClick={() => setIsEstimateOpen(true)}
-                className="inline-flex items-center justify-center rounded-full bg-[#7C9A6D] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#6b875d]"
-              >
-                Schedule an Estimate
-              </button>
+      <p className="mt-6 max-w-xl text-lg leading-8 text-zinc-600">
+        Chamillion Remodeling helps Dallas homeowners upgrade their spaces with dependable workmanship, clear communication, and finishes that look done right.
+      </p>
 
-              <a
-                href="#services"
-                className="inline-flex items-center justify-center rounded-full border border-zinc-300 bg-white px-6 py-3 text-sm font-medium transition hover:bg-zinc-100"
-              >
-                View Services
-              </a>
-            </div>
-          </div>
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <button
+          type="button"
+          onClick={() => setIsEstimateOpen(true)}
+          className="rounded-full bg-[#7C9A6D] px-7 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#6b875d]"
+        >
+          Schedule an Estimate
+        </button>
 
-          <div className="order-1 flex items-center justify-center lg:order-2">
-            <div className="w-full max-w-[360px] rounded-[28px] border border-zinc-200 bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.06)] sm:max-w-[430px] lg:max-w-[500px]">
-              <Image
-                src="/icon.png"
-                alt="Chamillion Remodeling Logo"
-                width={500}
-                height={500}
-                className="h-auto w-full object-contain"
-                priority
-              />
-            </div>
-          </div>
-        </section>
+        <a
+          href="tel:2142889423"
+          className="rounded-full border border-zinc-300 bg-white px-7 py-3 text-center text-sm font-semibold text-zinc-800 transition hover:bg-zinc-100"
+        >
+          Call (214) 288-9423
+        </a>
+      </div>
+
+      <div className="mt-8 inline-flex rounded-full border border-[#dfe7dc] bg-white px-5 py-3 text-sm text-[#1f3d2b] shadow-sm">
+        Serving Dallas and nearby areas • Pricing may vary by location
+      </div>
+    </div>
+
+    <div className="relative">
+      <div className="absolute -left-6 -top-6 h-32 w-32 rounded-[28px] bg-[#7C9A6D]/20" />
+      <div className="absolute -bottom-6 -right-6 h-40 w-40 rounded-[32px] bg-[#7C9A6D]/20" />
+
+      <div className="relative overflow-hidden rounded-[34px] border border-white bg-white p-4 shadow-2xl">
+        <Image
+          src="/icon.png"
+          alt="Chamillion Remodeling"
+          width={700}
+          height={700}
+          className="h-auto w-full object-contain"
+          priority
+        />
+      </div>
+    </div>
+  </div>
+</section>
 
         <section
-          id="services"
-          className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8"
+  id="services"
+  className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+>
+  <div className="mb-10 text-center">
+    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7C9A6D]">
+      Services
+    </p>
+
+    <h2 className="mx-auto mt-3 max-w-3xl text-3xl font-semibold leading-tight text-zinc-900 sm:text-4xl">
+      Remodeling services built around quality and detail
+    </h2>
+
+    <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-zinc-600">
+      Clean finishes, dependable workmanship, and thoughtful upgrades for homeowners who want the job done right.
+    </p>
+  </div>
+
+  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {services.map((service) => (
+      <div
+        key={service.title}
+        className="rounded-[22px] border border-zinc-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+      >
+        <div className="mb-4 h-1 w-12 rounded-full bg-[#7C9A6D]" />
+
+        <h3 className="text-lg font-semibold text-zinc-900">
+          {service.title}
+        </h3>
+
+        <p className="mt-3 text-sm leading-6 text-zinc-600">
+          {service.description}
+        </p>
+
+        <p className="mt-4 text-sm font-medium text-[#6f8a67]">
+          {service.highlight}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
+<section className="bg-[#f6f8f5] py-20 px-6">
+  <div className="mx-auto max-w-6xl grid gap-16 lg:grid-cols-2 items-center">
+
+    {/* LEFT SIDE - TEXT */}
+    <div>
+      <p className="text-xs uppercase tracking-[0.25em] text-[#7C9A6D] font-semibold">
+        About Us
+      </p>
+
+      <h2 className="mt-3 text-4xl font-bold text-zinc-900 leading-tight">
+        Built on quality, finished with precision
+      </h2>
+
+      <p className="mt-6 text-zinc-600 leading-7">
+        At Chamillion Remodeling, we specialize in transforming homes with clean finishes, thoughtful design, and attention to detail.
+      </p>
+
+      <p className="mt-4 text-zinc-600 leading-7">
+        From the first walkthrough to the final touches, every project is handled with care, clear communication, and a commitment to doing it right.
+      </p>
+
+      {/* FEATURES */}
+      <div className="mt-8 grid grid-cols-2 gap-4 text-sm">
+        <div className="rounded-xl bg-white p-4 shadow-sm border">
+          ✔ Clean, detailed finishes
+        </div>
+        <div className="rounded-xl bg-white p-4 shadow-sm border">
+          ✔ Reliable & professional
+        </div>
+        <div className="rounded-xl bg-white p-4 shadow-sm border">
+          ✔ Clear communication
+        </div>
+        <div className="rounded-xl bg-white p-4 shadow-sm border">
+          ✔ Fully insured
+        </div>
+      </div>
+    </div>
+
+    {/* RIGHT SIDE - VISUAL BLOCK */}
+    <div className="relative">
+      <div className="absolute -top-6 -left-6 h-32 w-32 bg-[#7C9A6D] rounded-2xl opacity-20"></div>
+      <div className="absolute -bottom-6 -right-6 h-32 w-32 bg-[#7C9A6D] rounded-2xl opacity-20"></div>
+
+      <div className="relative overflow-hidden rounded-[28px] shadow-xl border">
+        <Image
+          src="/IMG_6691.jpeg"  // you can change this to your best project photo
+          alt="Remodeling project"
+          width={800}
+          height={600}
+          className="object-cover w-full h-full"
+        />
+      </div>
+    </div>
+
+  </div>
+</section>
+       <section className="bg-[#f6f8f5] px-4 py-16 sm:px-6 md:py-20 lg:px-8">
+  <div className="mx-auto max-w-7xl">
+    <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#7C9A6D]">
+          Before & After
+        </p>
+
+        <h2 className="mt-3 max-w-3xl text-4xl font-semibold leading-tight text-zinc-900 sm:text-5xl">
+          See the difference quality work makes
+        </h2>
+
+        <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg">
+          Drag the slider to compare the original space with the completed finish.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-[#dfe7dc] bg-white px-5 py-4 text-sm text-zinc-600 shadow-sm">
+        <span className="font-semibold text-[#1f3d2b]">Tip:</span> Slide left or right to compare.
+      </div>
+    </div>
+
+    <div className="mx-auto max-w-5xl overflow-hidden rounded-[32px] border border-zinc-200 bg-white p-3 shadow-xl sm:p-5">
+      <div className="mb-3 flex justify-between px-2 text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500">
+        <span>Before</span>
+        <span>After</span>
+      </div>
+
+      <div className="overflow-hidden rounded-[24px] bg-zinc-100">
+        <ReactCompareSlider
+          itemOne={
+            <ReactCompareSliderImage
+              src={featuredComparison.before}
+              alt="Before remodel"
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            />
+          }
+          itemTwo={
+            <ReactCompareSliderImage
+              src={featuredComparison.after}
+              alt="After remodel"
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            />
+          }
+          className="aspect-[4/5] w-full sm:aspect-[16/9] max-h-[560px]"
+        />
+      </div>
+
+      <div className="flex flex-col gap-3 px-2 pt-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="text-xl font-semibold text-zinc-900">
+            {featuredComparison.title}
+          </h3>
+          <p className="mt-1 text-sm text-zinc-600">
+            Interactive project comparison.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setIsEstimateOpen(true)}
+          className="rounded-full bg-[#7C9A6D] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#6b875d]"
         >
-          <div className="mb-10 max-w-2xl sm:mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7C9A6D] sm:text-sm">
-              Services
-            </p>
+          Schedule an Estimate
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <h2 className="mt-3 max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-              Remodeling services built around quality and detail
-            </h2>
+<section className="relative overflow-hidden bg-stone-50 py-16 sm:py-20">
+  <div className="absolute left-0 top-0 h-full w-10 bg-[#7C9A6D] sm:w-16 lg:w-24" />
+  <div className="absolute right-0 top-0 h-full w-10 bg-[#7C9A6D] sm:w-16 lg:w-24" />
 
-            <p className="mt-4 text-base leading-7 text-zinc-600 sm:text-lg">
-  Thoughtful upgrades, clean finishes, and dependable workmanship for homeowners who want their space done right.
-            </p>  
+  <div className="relative mx-auto w-full max-w-7xl px-14 sm:px-24 lg:px-36">
+    <div className="mb-10 max-w-2xl">
+      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7c9a6d]">
+        Portfolio
+      </p>
+
+      <h2 className="mt-3 text-3xl font-semibold leading-tight text-zinc-900 sm:text-4xl">
+        Finished Projects
+      </h2>
+
+      <p className="mt-4 text-base leading-7 text-zinc-600 sm:text-lg">
+        Swipe through completed projects with clean finishes and quality detail.
+      </p>
+    </div>
+
+    <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth gap-4 pb-10 pt-6">
+      {finishedProjects.map((project) => (
+        <div
+          key={project.title}
+          className="min-w-[82%] snap-center overflow-hidden rounded-[28px] border border-zinc-200 bg-white shadow-xl transition-transform duration-300 hover:scale-105 sm:min-w-[62%] lg:min-w-[45%]"
+        >
+          <div className="relative w-full aspect-[4/5] bg-zinc-100">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-contain"
+            />
           </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {services.map((service, index) => (
-              <div
-                key={service.title}
-                className="group rounded-[24px] border border-zinc-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-[#edf4ed] text-sm font-bold text-[#6f8f6b] transition group-hover:bg-[#6f8f6b] group-hover:text-white">
-                  {String(index + 1).padStart(2, "0")}
-                </div>
+<section className="bg-stone-50 px-4 py-16">
+  <div className="mx-auto max-w-4xl rounded-[28px] border border-zinc-200 bg-white p-6 text-center shadow-sm sm:p-10">
+    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7C9A6D]">
+      Client Reviews
+    </p>
 
-                <h3 className="text-xl font-semibold text-zinc-900">
-                  {service.title}
-                </h3>
+    <h2 className="mt-3 text-3xl font-semibold text-zinc-900">
+      Worked with us? Leave a review
+    </h2>
 
-                <p className="mt-3 text-sm leading-6 text-zinc-600 sm:text-[15px]">
-                  {service.description}
-                </p>
+    <p className="mx-auto mt-4 max-w-2xl text-zinc-600">
+      Reviews are added after completed projects. If you’ve worked with us, we’d appreciate your feedback.
+    </p>
 
-                <div className="mt-5 text-sm font-medium text-[#6f8a67]">
-  {service.highlight}
-</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7C9A6D] sm:text-sm">
-                Portfolio
-              </p>
-
-              <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-                Recent transformations with a clean finished look
-              </h2>
-
-              <p className="mt-4 text-base leading-7 text-zinc-600 sm:text-lg">
-                A closer look at the spaces we’ve upgraded with detail-focused
-                work, polished finishes, and a result that feels complete.
-              </p>
-            </div>
-
-            <div className="md:text-right">
-              <div className="inline-flex rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-600 shadow-sm">
-                Designed to grow with future projects
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {transformations.map((project) => (
-              <div
-                key={project.title}
-                className="group overflow-hidden rounded-[28px] border border-zinc-200 bg-white shadow-[0_10px_35px_rgba(0,0,0,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(0,0,0,0.10)]"
-              >
-                <div className="flex flex-col gap-4 p-5 sm:p-6">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7C9A6D]">
-                      Featured Project
-                    </p>
-                    <h3 className="mt-2 text-xl font-semibold text-zinc-900 sm:text-2xl">
-                      {project.title}
-                    </h3>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600">
-                      Clean Finish
-                    </span>
-                    <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600">
-                      Detail Focused
-                    </span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2">
-                  <div className="border-b border-zinc-200 sm:border-b-0 sm:border-r">
-                    <div className="relative overflow-hidden bg-zinc-100">
-                      <div className="absolute left-4 top-4 z-10">
-                        <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-zinc-700 shadow-sm backdrop-blur">
-                          {project.title === "Vanity Installation"
-                            ? "Plan"
-                            : "Before"}
-                        </span>
-                      </div>
-
-                      <div className="aspect-[4/3] w-full overflow-hidden">
-                        <Image
-                          src={project.before}
-                          alt={`${project.title} before`}
-                          width={1400}
-                          height={1000}
-                          className={`h-full w-full transition duration-500 group-hover:scale-[1.03] ${
-                            project.title === "Vanity Installation"
-                              ? "object-contain p-5"
-                              : "object-cover"
-                          }`}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="relative overflow-hidden bg-zinc-100">
-                      <div className="absolute left-4 top-4 z-10">
-                        <span className="rounded-full bg-[#7C9A6D]/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-white shadow-sm backdrop-blur">
-                          After
-                        </span>
-                      </div>
-
-                      <div className="aspect-[4/3] w-full overflow-hidden">
-                        <Image
-                          src={project.after}
-                          alt={`${project.title} after`}
-                          width={1400}
-                          height={1000}
-                          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
+    <a
+      href="mailto:chamillionremodeling214@outlook.com?subject=Client Review for Chamillion Remodeling&body=Name:%0AProject completed:%0ARating:%0AReview:%0A"
+      className="mt-6 inline-flex rounded-full bg-[#7C9A6D] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#6b875d]"
+    >
+      Submit a Review
+    </a>
+  </div>
+</section>
         <section id="contact" className="bg-zinc-900 py-14 text-white md:py-20">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
             <div className="max-w-2xl">
@@ -339,9 +456,23 @@ export default function Home() {
             </button>
           </div>
         </section>
-      </main>
+</main>
+return (
+  <>
+    <main>
+      {/* all your sections */}
+    </main>
 
-      {isEstimateOpen && (
+    {/* 👇 ADD IT HERE */}
+    <a
+      href="tel:2142889423"
+      className="sm:hidden fixed bottom-5 right-5 z-50 rounded-full bg-[#7C9A6D] px-6 py-3 text-sm font-semibold text-white shadow-xl hover:bg-[#6b875d] transition"
+    >
+      Call Now
+    </a>
+  </>
+);
+{isEstimateOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-6">
           <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-[28px] bg-white shadow-2xl">
             <div className="flex items-start justify-between gap-4 border-b border-zinc-200 px-5 py-5 sm:px-8">
@@ -465,7 +596,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      )}
+            )}
     </div>
   );
 }
