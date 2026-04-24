@@ -457,8 +457,7 @@ export default function Home() {
           </div>
         </section>
 </main>
-return (
-  <>
+
     <main>
       {/* all your sections */}
     </main>
@@ -470,7 +469,6 @@ return (
     >
       Call Now
     </a>
-  </>
 );
 {isEstimateOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-6">
