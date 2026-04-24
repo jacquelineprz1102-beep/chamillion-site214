@@ -70,7 +70,7 @@ const finishedProjects = [
   },
 ]
 const featuredComparison = {
-  title: "Kitchen Remodel Before & After",
+  title: "Exterior Painting Before & After",
   before: "/03FCD776-A733-4AA9-8777-D0250FBA959F.HEIC",
   after: "/69EB0A22-B0E0-4070-86E8-C5DDB406E53A.HEIC",
 };
