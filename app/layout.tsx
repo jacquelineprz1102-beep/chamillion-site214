@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: 'Chamillion Remodeling',
   description: 'Professional remodeling services with clean finishes and reliable results.',
+  icons: {
+    icon: '/icon.png',
+  },
 }
 
 export default function RootLayout({
