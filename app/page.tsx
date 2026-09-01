@@ -98,7 +98,7 @@ export default function Home() {
       form.details || "-",
     ].join("\n");
 
-    return `mailto:chamillionremodeling214@outlook.com?subject=${encodeURIComponent(
+    return `mailto:info@chamillionremodeling.com?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
   }, [form]);
@@ -560,7 +560,7 @@ export default function Home() {
 
             <div className="mt-4 space-y-2 text-sm text-white/65">
               <p>(214) 288-9423</p>
-              <p>chamillionremodeling214@outlook.com</p>
+              <p>info@chamillionremodeling.com</p>
               <p>chamillionremodeling.com</p>
               <p>Serving Dallas–Fort Worth & surrounding areas</p>
             </div>
