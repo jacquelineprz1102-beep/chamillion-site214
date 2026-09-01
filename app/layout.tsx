@@ -12,13 +12,41 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL('https://chamillionremodeling.com'),
+
   title: 'Chamillion Remodeling',
-  description: 'Professional remodeling services with clean finishes and reliable results.',
+
+  description:
+    'Professional remodeling services with clean finishes and reliable results.',
+
   icons: {
     icon: '/icon.png',
   },
-}
+
+  openGraph: {
+    title: 'Chamillion Remodeling',
+    description:
+      'Professional remodeling services with clean finishes and reliable results.',
+    url: 'https://chamillionremodeling.com',
+    siteName: 'Chamillion Remodeling',
+    images: [
+      {
+        url: '/icon.png',
+        alt: 'Chamillion Remodeling',
+      },
+    ],
+    type: 'website',
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Chamillion Remodeling',
+    description:
+      'Professional remodeling services with clean finishes and reliable results.',
+    images: ['/icon.png'],
+  },
+};
 
 export default function RootLayout({
   children,
