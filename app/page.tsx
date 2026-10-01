@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
@@ -78,40 +78,81 @@ export default function Home() {
   const [isEstimateOpen, setIsEstimateOpen] = useState(false);
 
   const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    callbackTime: "",
-    service: "",
-    details: "",
-  });
+  name: "",
+  phone: "",
+  email: "",
+  location: "",
+  contactMethod: "Phone",
+  callbackTime: "",
+  service: "",
+  details: "",
+});
+
+const [isSubmitting, setIsSubmitting] = useState(false);
+const [submitStatus, setSubmitStatus] = useState<
+  "idle" | "success" | "error"
+>("idle");
+const [submitError, setSubmitError] = useState("");
 
   const updateForm = (field: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
+const submitEstimate = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-  const emailHref = useMemo(() => {
-    const subject = `Estimate Request - ${
-      form.service || "Website Inquiry"
-    }`;
+  setSubmitError("");
 
-    const body = [
-      "Hello Chamillion Remodeling,",
-      "",
-      "I would like to schedule an estimate.",
-      "",
-      `Name: ${form.name || "-"}`,
-      `Phone Number: ${form.phone || "-"}`,
-      `Best Time for a Call: ${form.callbackTime || "-"}`,
-      `Service Needed: ${form.service || "-"}`,
-      "",
-      "Project Brief:",
-      form.details || "-",
-    ].join("\n");
+  if (!form.name || !form.phone || !form.service || !form.details) {
+    setSubmitStatus("error");
+    setSubmitError(
+      "Please complete your name, phone number, service, and project description."
+    );
+    return;
+  }
 
-    return `mailto:info@chamillionremodeling.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-  }, [form]);
+  setIsSubmitting(true);
+  setSubmitStatus("idle");
+
+  try {
+    const response = await fetch("/api/estimate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Unable to submit your request.");
+    }
+
+    setSubmitStatus("success");
+
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      location: "",
+      contactMethod: "Phone",
+      callbackTime: "",
+      service: "",
+      details: "",
+    });
+  } catch (error) {
+    setSubmitStatus("error");
+
+    setSubmitError(
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+  
 
   return (
     <div className="min-h-screen bg-[#050806] text-white">
@@ -688,154 +729,312 @@ export default function Home() {
       </a>
 
       {/* ESTIMATE MODAL */}
-      {isEstimateOpen && (
+{isEstimateOpen && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 px-4 py-6 backdrop-blur-sm">
 
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 py-6">
+    <div className="relative max-h-[92vh] w-full max-w-2xl overflow-y-auto border border-[#c99a3d] bg-[#f5f1e7] text-[#111111] shadow-2xl">
 
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-[#c99a3d] bg-[#f5f1e7] text-[#111111] shadow-2xl">
+      {submitStatus === "success" ? (
+        <div className="flex min-h-[520px] flex-col items-center justify-center bg-[#071d15] px-6 py-16 text-center text-white">
 
-            <div className="flex items-start justify-between gap-4 border-b border-[#c99a3d]/30 bg-[#071d15] px-5 py-5 text-white sm:px-8">
+          <div className="success-ring flex h-28 w-28 items-center justify-center rounded-full border-2 border-[#e2bd68]">
+            <span className="success-check text-6xl text-[#e2bd68]">✓</span>
+          </div>
+
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.35em] text-[#e2bd68]">
+            Chamillion Remodeling
+          </p>
+
+          <h3 className="luxury-heading mt-4 text-4xl sm:text-5xl">
+            Request Received
+          </h3>
+
+          <div className="mx-auto mt-5 h-px w-24 bg-[#c99a3d]" />
+
+          <p className="mt-6 max-w-md text-base leading-7 text-white/65">
+            Thank you for considering Chamillion Remodeling. Your estimate
+            request has been received and we'll be in touch soon.
+          </p>
+
+          <button
+            type="button"
+            onClick={() => {
+              setIsEstimateOpen(false);
+              setSubmitStatus("idle");
+            }}
+            className="gold-button mt-9 px-8 py-4 text-sm font-bold uppercase tracking-wide"
+          >
+            Back To Website
+          </button>
+
+        </div>
+      ) : (
+        <>
+          <div className="flex items-start justify-between gap-4 border-b border-[#c99a3d]/30 bg-[#071d15] px-5 py-5 text-white sm:px-8">
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#e2bd68]">
+                Request An Estimate
+              </p>
+
+              <h3 className="luxury-heading mt-2 text-3xl">
+                Tell us about your project.
+              </h3>
+
+              <p className="mt-2 text-sm text-white/55">
+                Fill out the form below and we'll contact you about your project.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                setIsEstimateOpen(false);
+                setSubmitStatus("idle");
+                setSubmitError("");
+              }}
+              className="border border-[#c99a3d] px-3 py-1 text-sm transition hover:bg-[#c99a3d] hover:text-black"
+            >
+              Close
+            </button>
+
+          </div>
+
+          <form onSubmit={submitEstimate} className="px-5 py-6 sm:px-8">
+
+            <div className="grid gap-5 sm:grid-cols-2">
 
               <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  Name <span className="text-[#a87927]">*</span>
+                </label>
 
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#e2bd68]">
-                  Request An Estimate
-                </p>
-
-                <h3 className="luxury-heading mt-2 text-3xl">
-                  Tell us about your project.
-                </h3>
-
+                <input
+                  required
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => updateForm("name", e.target.value)}
+                  placeholder="Your name"
+                  className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#c99a3d]"
+                />
               </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  Phone Number <span className="text-[#a87927]">*</span>
+                </label>
+
+                <input
+                  required
+                  type="tel"
+                  value={form.phone}
+                  onChange={(e) => updateForm("phone", e.target.value)}
+                  placeholder="(214) 555-1234"
+                  className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#c99a3d]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  Email
+                </label>
+
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => updateForm("email", e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#c99a3d]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  Project City / Location
+                </label>
+
+                <input
+                  type="text"
+                  value={form.location}
+                  onChange={(e) => updateForm("location", e.target.value)}
+                  placeholder="Example: Dallas, TX"
+                  className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#c99a3d]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  Service Needed <span className="text-[#a87927]">*</span>
+                </label>
+
+                <select
+                  required
+                  value={form.service}
+                  onChange={(e) => updateForm("service", e.target.value)}
+                  className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#c99a3d]"
+                >
+                  <option value="">Select a service</option>
+
+                  {services.map((service) => (
+                    <option key={service.title} value={service.title}>
+                      {service.title}
+                    </option>
+                  ))}
+
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  Preferred Contact
+                </label>
+
+                <select
+                  value={form.contactMethod}
+                  onChange={(e) =>
+                    updateForm("contactMethod", e.target.value)
+                  }
+                  className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#c99a3d]"
+                >
+                  <option value="Phone">Phone Call</option>
+                  <option value="Text">Text Message</option>
+                  <option value="Email">Email</option>
+                </select>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="mb-2 block text-sm font-semibold">
+                  Best Time To Contact You
+                </label>
+
+                <input
+                  type="text"
+                  value={form.callbackTime}
+                  onChange={(e) =>
+                    updateForm("callbackTime", e.target.value)
+                  }
+                  placeholder="Example: Weekdays after 5 PM"
+                  className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#c99a3d]"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="mb-2 block text-sm font-semibold">
+                  Tell Us About Your Project{" "}
+                  <span className="text-[#a87927]">*</span>
+                </label>
+
+                <textarea
+                  required
+                  value={form.details}
+                  onChange={(e) => updateForm("details", e.target.value)}
+                  placeholder="What would you like remodeled? Tell us a little about the space and what you're wanting done."
+                  rows={5}
+                  className="w-full resize-none border border-zinc-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#c99a3d]"
+                />
+              </div>
+
+            </div>
+
+            {submitStatus === "error" && (
+              <div className="mt-5 border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {submitError}
+              </div>
+            )}
+
+            <div className="mt-6 border border-[#c99a3d]/30 bg-white p-4">
+              <p className="text-sm leading-6 text-zinc-600">
+                Your information will be sent directly to Chamillion Remodeling.
+                You won't be redirected away from our website.
+              </p>
+            </div>
+
+            <div className="mt-6">
 
               <button
-                type="button"
-                onClick={() => setIsEstimateOpen(false)}
-                className="border border-[#c99a3d] px-3 py-1 text-sm"
+                type="submit"
+                disabled={isSubmitting}
+                className="gold-button flex w-full items-center justify-center px-6 py-4 text-sm font-bold uppercase tracking-[0.12em] disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Close
+                {isSubmitting ? (
+                  <>
+                    <span className="submit-spinner mr-3 h-5 w-5 rounded-full border-2 border-black/30 border-t-black" />
+                    Sending Request...
+                  </>
+                ) : (
+                  "Submit Estimate Request →"
+                )}
               </button>
 
-            </div>
-
-            <div className="px-5 py-6 sm:px-8">
-
-              <div className="grid gap-5 sm:grid-cols-2">
-
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    Name
-                  </label>
-
-                  <input
-                    type="text"
-                    value={form.name}
-                    onChange={(e) => updateForm("name", e.target.value)}
-                    placeholder="Your name"
-                    className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-[#c99a3d]"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    Phone Number
-                  </label>
-
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={(e) => updateForm("phone", e.target.value)}
-                    placeholder="Best number to reach you"
-                    className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-[#c99a3d]"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    Best Time For A Call
-                  </label>
-
-                  <input
-                    type="text"
-                    value={form.callbackTime}
-                    onChange={(e) =>
-                      updateForm("callbackTime", e.target.value)
-                    }
-                    placeholder="Example: Weekdays after 5 PM"
-                    className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-[#c99a3d]"
-                  />
-                </div>
-
-                <div>
-
-                  <label className="mb-2 block text-sm font-medium">
-                    Service Needed
-                  </label>
-
-                  <select
-                    value={form.service}
-                    onChange={(e) => updateForm("service", e.target.value)}
-                    className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-[#c99a3d]"
-                  >
-
-                    <option value="">Select a service</option>
-
-                    {services.map((service) => (
-                      <option key={service.title} value={service.title}>
-                        {service.title}
-                      </option>
-                    ))}
-
-                    <option value="Other">Other</option>
-
-                  </select>
-                </div>
-
-                <div className="sm:col-span-2">
-
-                  <label className="mb-2 block text-sm font-medium">
-                    Brief Project Description
-                  </label>
-
-                  <textarea
-                    value={form.details}
-                    onChange={(e) => updateForm("details", e.target.value)}
-                    placeholder="Tell us what you're wanting done"
-                    rows={5}
-                    className="w-full border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-[#c99a3d]"
-                  />
-
-                </div>
-              </div>
-
-              <div className="mt-6 border border-[#c99a3d]/30 bg-white p-4 text-sm leading-6 text-zinc-600">
-                When you continue, your email app will open with this
-                information filled in and ready to send.
-              </div>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-
+              <p className="mt-4 text-center text-xs text-zinc-500">
+                Or call us directly at{" "}
                 <a
-                  href={emailHref}
-                  className="gold-button inline-flex items-center justify-center px-6 py-3 text-sm font-bold uppercase"
+                  href="tel:2142889423"
+                  className="font-bold text-[#8f6927]"
                 >
-                  Continue To Email
+                  (214) 288-9423
                 </a>
+              </p>
 
-                <button
-                  type="button"
-                  onClick={() => setIsEstimateOpen(false)}
-                  className="inline-flex items-center justify-center border border-[#071d15] px-6 py-3 text-sm font-bold uppercase text-[#071d15]"
-                >
-                  Cancel
-                </button>
-
-              </div>
             </div>
-          </div>
-        </div>
+
+          </form>
+        </>
       )}
 
+    </div>
+  </div>
+)}<style jsx global>{`
+  @keyframes chamillionSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes chamillionSuccess {
+    0% {
+      opacity: 0;
+      transform: scale(0.55);
+    }
+
+    65% {
+      transform: scale(1.08);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes chamillionCheck {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotate(-20deg);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  .submit-spinner {
+    animation: chamillionSpin 0.8s linear infinite;
+  }
+
+  .success-ring {
+    animation: chamillionSuccess 0.65s ease-out both;
+    box-shadow:
+      0 0 25px rgba(226, 189, 104, 0.2),
+      0 0 60px rgba(201, 154, 61, 0.12);
+  }
+
+  .success-check {
+    animation: chamillionCheck 0.45s 0.3s ease-out both;
+  }
+`}</style>
     </div>
   );
 }
