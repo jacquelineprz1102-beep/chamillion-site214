@@ -145,3 +145,161 @@ body {
   background: var(--gold);
   color: var(--black);
 }
+/* =========================================
+   CHAMILLION LUXURY ANIMATIONS
+   ========================================= */
+
+/* HERO ENTRANCE */
+@keyframes heroReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.hero-reveal-1 {
+  opacity: 0;
+  animation: heroReveal 0.8s ease-out 0.15s forwards;
+}
+
+.hero-reveal-2 {
+  opacity: 0;
+  animation: heroReveal 0.9s ease-out 0.3s forwards;
+}
+
+.hero-reveal-3 {
+  opacity: 0;
+  animation: heroReveal 0.9s ease-out 0.45s forwards;
+}
+
+.hero-reveal-4 {
+  opacity: 0;
+  animation: heroReveal 0.9s ease-out 0.6s forwards;
+}
+
+
+/* GOLD SHIMMER */
+@keyframes goldShimmer {
+  0% {
+    background-position: 200% center;
+  }
+
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.gold-shimmer {
+  color: #e2bd68;
+
+  background-image: linear-gradient(
+    110deg,
+    #a87927 0%,
+    #d7a844 25%,
+    #fff0b3 45%,
+    #e2bd68 52%,
+    #a87927 75%,
+    #e2bd68 100%
+  );
+
+  background-size: 250% auto;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  animation: goldShimmer 6s linear infinite;
+}
+
+
+/* SLOW BLUEPRINT MOVEMENT */
+@keyframes blueprintDrift {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 42px 42px;
+  }
+}
+
+.blueprint-bg {
+  animation: blueprintDrift 18s linear infinite;
+}
+
+
+/* GOLD BUTTON GLOW */
+@keyframes goldPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(201, 154, 61, 0),
+      0 8px 30px rgba(201, 154, 61, 0.08);
+  }
+
+  50% {
+    box-shadow:
+      0 0 24px rgba(226, 189, 104, 0.18),
+      0 8px 35px rgba(201, 154, 61, 0.15);
+  }
+}
+
+.gold-button:hover {
+  animation: goldPulse 2s ease-in-out infinite;
+}
+
+
+/* PROJECT IMAGE HOVER */
+.project-luxury-hover {
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease,
+    border-color 0.5s ease;
+}
+
+.project-luxury-hover:hover {
+  transform: translateY(-5px);
+  border-color: rgba(226, 189, 104, 0.75);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(201, 154, 61, 0.08);
+}
+
+
+/* SUBTLE LOGO ENTRANCE */
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.logo-entrance {
+  animation: logoEntrance 1s ease-out forwards;
+}
+
+
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
