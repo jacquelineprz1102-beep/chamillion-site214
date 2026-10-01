@@ -1,18 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  /* Chamillion Remodeling Brand Colors */
+  /* Chamillion Remodeling — Luxury Brand Palette */
   --green: #123b2a;
-  --dark-green: #0b2a1e;
-  --gold: #c49a3a;
-  --black: #111111;
-  --white: #ffffff;
-  --warm-white: #f7f5ef;
-  --light-green: #e8efe9;
+  --deep-green: #071d15;
+  --dark-green: #06150f;
+  --emerald: #174d36;
 
-  /* Site Defaults */
-  --background: #f7f5ef;
-  --foreground: #111111;
+  --gold: #c99a3d;
+  --gold-light: #e2bd68;
+  --gold-dark: #8f6927;
+
+  --black: #050806;
+  --soft-black: #0a0f0c;
+
+  --white: #ffffff;
+  --warm-white: #f5f1e7;
+
+  --background: #050806;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -32,9 +38,107 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(18, 59, 42, 0.28),
+      transparent 38%
+    ),
+    #050806;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Elegant serif treatment for luxury headings */
+.luxury-heading {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.025em;
+}
+
+/* Metallic-gold text treatment */
+.gold-text {
+  color: var(--gold-light);
+  background: linear-gradient(
+    180deg,
+    #f3d98b 0%,
+    #d7a844 42%,
+    #a87927 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle blueprint grid used behind selected sections */
+.blueprint-bg {
+  background-color: #071d15;
+  background-image:
+    linear-gradient(rgba(201, 154, 61, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 154, 61, 0.045) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+/* Gold decorative line */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    var(--gold-light),
+    var(--gold),
+    transparent
+  );
+}
+
+/* Luxury card surface */
+.luxury-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18, 59, 42, 0.65),
+      rgba(5, 8, 6, 0.95)
+    );
+  border: 1px solid rgba(201, 154, 61, 0.38);
+}
+
+/* Gold button */
+.gold-button {
+  background: linear-gradient(
+    135deg,
+    #a87927,
+    #e2bd68,
+    #b8862f
+  );
+  color: #050806;
+  border: 1px solid #e2bd68;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.gold-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 8px 30px rgba(201, 154, 61, 0.22);
+}
+
+/* Gold-outline secondary button */
+.gold-outline-button {
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  background: rgba(5, 8, 6, 0.45);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.gold-outline-button:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: translateY(-2px);
 }
 
 ::selection {
