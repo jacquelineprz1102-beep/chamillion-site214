@@ -167,7 +167,7 @@ const submitEstimate = async (e: React.FormEvent<HTMLFormElement>) => {
               alt="Chamillion Remodeling"
               width={300}
               height={130}
-              className="h-16 w-auto object-contain sm:h-20"
+              className="logo-entrance h-16 w-auto object-contain sm:h-20"
               priority
             />
           </a>
@@ -236,30 +236,30 @@ const submitEstimate = async (e: React.FormEvent<HTMLFormElement>) => {
 
             <div className="max-w-4xl">
 
-              <div className="mb-7 flex items-center gap-4 text-xs font-bold uppercase tracking-[0.32em] text-[#e2bd68]">
+              <div className="hero-reveal-1 mb-7 flex items-center gap-4 text-xs font-bold uppercase tracking-[0.32em] text-[#e2bd68]">
                 <span className="h-px w-12 bg-[#c99a3d]" />
                 Residential / Commercial
               </div>
 
-              <h1 className="luxury-heading text-5xl font-semibold uppercase leading-[0.95] sm:text-6xl lg:text-8xl">
+              <h1 className="hero-reveal-2 luxury-heading text-5xl font-semibold uppercase leading-[0.95] sm:text-6xl lg:text-8xl">
                 Transforming
                 <br />
-                <span className="gold-text">Spaces.</span>
+                <span className="gold-shimmer">Spaces.</span>
                 <br />
                 Building Dreams.
               </h1>
 
-              <p className="mt-8 max-w-2xl text-lg leading-8 text-white/70">
+              <p className="hero-reveal-3 mt-8 max-w-2xl text-lg leading-8 text-white/70">
                 Quality remodeling and refined finishes backed by craftsmanship,
                 experience, and attention to detail.
               </p>
 
-              <div className="mt-6 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.16em] text-[#e2bd68]">
+              <div className="hero-reveal-3 mt-6 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.16em] text-[#e2bd68]">
                 <span className="text-xl">◇</span>
                 Fully Insured For Your Peace Of Mind
               </div>
 
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <div className="hero-reveal-4 mt-10 flex flex-col gap-4 sm:flex-row">
 
                 <button
                   type="button"
@@ -464,7 +464,7 @@ const submitEstimate = async (e: React.FormEvent<HTMLFormElement>) => {
               {finishedProjects.map((project, index) => (
                 <div
                   key={`${project.title}-${index}`}
-                  className="group overflow-hidden border border-[#c99a3d]/25 bg-[#050806]"
+                  className="project-luxury-hover group overflow-hidden border border-[#c99a3d]/25 bg-[#050806]"
                 >
 
                   <div className="relative aspect-[4/3] overflow-hidden">
